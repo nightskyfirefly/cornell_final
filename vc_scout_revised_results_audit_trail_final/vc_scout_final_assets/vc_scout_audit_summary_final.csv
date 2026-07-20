@@ -1,0 +1,11 @@
+metric,value,note
+Expanded rows audited,75230.0,Rows in startup_master.csv
+Rows with valuation,1829.0,Valuation coverage is mostly unicorn/current/former only
+Rows with funding,53519.0,Funding coverage varies by source and tier
+Unicorn rows with valuation and funding checked,1058.0,Population eligible for funding-unit audit
+Unit-suspect unicorn funding rows corrected for analysis,950.0,"Working correction divides original funding by 1,000; raw value is preserved"
+Rows with funding > valuation after correction,0.0,Should be separately reviewed if nonzero
+Form D Q2 2026 rows,5728.0,Separate market context table
+Form D mega raises >= $100M,238.0,Large Q2 2026 raises in raw Form D file
+Mega raises in likely non-startup categories,156.0,Finance/real estate/insurance/investing categories
+Mega-raise dollars in likely non-startup categories,0.7697987931759274,"Share of dollars, not row count"

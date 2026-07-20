@@ -1,0 +1,7 @@
+tier,rows,valuation_rows,funding_rows,countries,median_valuation_b,median_funding_audited_b
+control_accelerator,8342,0,0,1,,
+control_funded,64150,0,51552,135,,0.0018987135
+soonicorn_proxy,908,0,908,44,,0.15
+unicorn_current,1400,1400,829,53,1.665,0.352
+unicorn_delisted,223,223,219,22,2.0,0.403
+unicorn_exited,207,206,11,30,2.2199999999999998,0.634

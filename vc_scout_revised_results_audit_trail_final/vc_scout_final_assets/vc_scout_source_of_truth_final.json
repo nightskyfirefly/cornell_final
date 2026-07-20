@@ -1,0 +1,440 @@
+{
+  "inputs": {
+    "startup_master.csv_rows": 75230,
+    "formd_2026q2_raises.csv_rows": 5728,
+    "build_summary": {
+      "master_rows": 75230,
+      "tier_counts": {
+        "control_funded": 64150,
+        "control_accelerator": 8342,
+        "unicorn_current": 1400,
+        "soonicorn_proxy": 908,
+        "unicorn_delisted": 223,
+        "unicorn_exited": 207
+      },
+      "outcome_counts": {
+        "operating": 58620,
+        "closed": 6869,
+        "acquired": 6023,
+        "unknown": 2055,
+        "ipo": 1654,
+        "exited_other": 9
+      },
+      "rows_with_valuation": 1829,
+      "rows_with_funding": 53519,
+      "panel_rows": 1672,
+      "panel_all4": 838,
+      "live_parse_dropped": 0,
+      "skipped_ragged_lines": {
+        "cbinsights_unicorns_2024.csv": 0,
+        "cbinsights_unicorns_2025-07.csv": 0,
+        "wikipedia_former_unicorns.csv": 1
+      },
+      "spot_checks": {
+        "Anthropic": "unicorn_current | val=965.0 | operating",
+        "OpenAI": "unicorn_current | val=840.0 | operating",
+        "Stripe": "unicorn_current | val=159.0 | operating",
+        "Airbnb": "unicorn_exited | val=31.0 | ipo",
+        "SpaceX": "unicorn_exited | val=1250.0 | ipo",
+        "Stripe panel": {
+          "val_2022": 95.0,
+          "val_2024": 70.0,
+          "val_2025": 70.0,
+          "val_2026": 159.0
+        }
+      }
+    }
+  },
+  "audit_metrics": [
+    {
+      "metric": "Expanded rows audited",
+      "value": 75230,
+      "note": "Rows in startup_master.csv"
+    },
+    {
+      "metric": "Rows with valuation",
+      "value": 1829,
+      "note": "Valuation coverage is mostly unicorn/current/former only"
+    },
+    {
+      "metric": "Rows with funding",
+      "value": 53519,
+      "note": "Funding coverage varies by source and tier"
+    },
+    {
+      "metric": "Unicorn rows with valuation and funding checked",
+      "value": 1058,
+      "note": "Population eligible for funding-unit audit"
+    },
+    {
+      "metric": "Unit-suspect unicorn funding rows corrected for analysis",
+      "value": 950,
+      "note": "Working correction divides original funding by 1,000; raw value is preserved"
+    },
+    {
+      "metric": "Rows with funding > valuation after correction",
+      "value": 0,
+      "note": "Should be separately reviewed if nonzero"
+    },
+    {
+      "metric": "Form D Q2 2026 rows",
+      "value": 5728,
+      "note": "Separate market context table"
+    },
+    {
+      "metric": "Form D mega raises >= $100M",
+      "value": 238,
+      "note": "Large Q2 2026 raises in raw Form D file"
+    },
+    {
+      "metric": "Mega raises in likely non-startup categories",
+      "value": 156,
+      "note": "Finance/real estate/insurance/investing categories"
+    },
+    {
+      "metric": "Mega-raise dollars in likely non-startup categories",
+      "value": 0.7697987931759274,
+      "note": "Share of dollars, not row count"
+    }
+  ],
+  "era_summary": [
+    {
+      "era": "Pre-2021",
+      "dated_unicorn_rows": 351,
+      "median_valuation_b": 2.3,
+      "median_funding_b": 0.505,
+      "median_years_to_unicorn": 6.0,
+      "industries": 5
+    },
+    {
+      "era": "2021",
+      "dated_unicorn_rows": 441,
+      "median_valuation_b": 1.67,
+      "median_funding_b": 0.32,
+      "median_years_to_unicorn": 6.0,
+      "industries": 5
+    },
+    {
+      "era": "Post-2021",
+      "dated_unicorn_rows": 607,
+      "median_valuation_b": 1.5,
+      "median_funding_b": 0.231,
+      "median_years_to_unicorn": 7.0,
+      "industries": 6
+    }
+  ],
+  "era_tests": {
+    "valuation_kruskal_p": 5.139979229945288e-12,
+    "funding_kruskal_p": 3.487926934086623e-19,
+    "years_to_unicorn_kruskal_p": 0.26684493014696575,
+    "sector_mix_chi_square_p": 1.0317082942061027e-20
+  },
+  "valuation_model": {
+    "rows": 1057,
+    "champion": "Gradient Boosting",
+    "model_results": [
+      {
+        "model": "Gradient Boosting",
+        "cv_r2_mean": 0.39687568739556517,
+        "cv_r2_std": 0.10819321898664891,
+        "test_r2": 0.30274558257800965,
+        "mae_ln": 0.4797170442353346,
+        "rmse_ln": 0.6173891010751544,
+        "median_abs_pct_error": 0.4035658633577441
+      },
+      {
+        "model": "Random Forest",
+        "cv_r2_mean": 0.39613274368165075,
+        "cv_r2_std": 0.0862209184912767,
+        "test_r2": 0.27784787959574786,
+        "mae_ln": 0.48266307060994723,
+        "rmse_ln": 0.6283153454500519,
+        "median_abs_pct_error": 0.4048225347676886
+      },
+      {
+        "model": "OLS",
+        "cv_r2_mean": 0.30063435501092106,
+        "cv_r2_std": 0.11052438102004972,
+        "test_r2": 0.2463218045314023,
+        "mae_ln": 0.5136518702897951,
+        "rmse_ln": 0.6418836252672948,
+        "median_abs_pct_error": 0.46976353963852735
+      },
+      {
+        "model": "Ridge",
+        "cv_r2_mean": 0.3148104312944958,
+        "cv_r2_std": 0.10439175554281033,
+        "test_r2": 0.2461124590307867,
+        "mae_ln": 0.5151515014965031,
+        "rmse_ln": 0.6419727655129391,
+        "median_abs_pct_error": 0.4729053511900577
+      }
+    ],
+    "funding_elasticity": 0.4938830139363277,
+    "no_funding_stress_test": {
+      "model": "No-funding Ridge diagnostic",
+      "test_r2": 0.04523305852040582,
+      "mae_ln": 0.6037112699186029
+    },
+    "permutation_importance": [
+      {
+        "feature": "ln_funding",
+        "importance_mean": 0.568246832055707,
+        "importance_std": 0.06880516638403439
+      },
+      {
+        "feature": "industry_group",
+        "importance_mean": 0.04027787237303818,
+        "importance_std": 0.02065260932965342
+      },
+      {
+        "feature": "continent",
+        "importance_mean": 0.03733870099979577,
+        "importance_std": 0.017685805889716282
+      },
+      {
+        "feature": "era",
+        "importance_mean": 0.010750750258811937,
+        "importance_std": 0.007095077988672191
+      },
+      {
+        "feature": "tier",
+        "importance_mean": 0.0031771470773693912,
+        "importance_std": 0.0033809645956204607
+      },
+      {
+        "feature": "investor_count",
+        "importance_mean": -9.874165222878428e-06,
+        "importance_std": 0.0017247780632930968
+      },
+      {
+        "feature": "years_to_unicorn",
+        "importance_mean": -0.00579094414288781,
+        "importance_std": 0.008502158256360354
+      }
+    ]
+  },
+  "expanded_tier_classifier_diagnostic": [
+    {
+      "model": "Gradient Boosting diagnostic",
+      "roc_auc": 0.9930015485285161,
+      "avg_precision": 0.9744018612477661,
+      "balanced_accuracy": 0.9334046814823866,
+      "precision": 0.9875930521091811,
+      "recall": 0.868995633187773,
+      "n_sampled": 10980,
+      "positives": 1830,
+      "negatives": 9150
+    },
+    {
+      "model": "Random Forest diagnostic",
+      "roc_auc": 0.9843452550298536,
+      "avg_precision": 0.9548966830082405,
+      "balanced_accuracy": 0.9331760300769683,
+      "precision": 0.9080717488789237,
+      "recall": 0.8842794759825328,
+      "n_sampled": 10980,
+      "positives": 1830,
+      "negatives": 9150
+    },
+    {
+      "model": "Logistic diagnostic",
+      "roc_auc": 0.9833800501410097,
+      "avg_precision": 0.9512188085243005,
+      "balanced_accuracy": 0.9277074904100069,
+      "precision": 0.8426501035196687,
+      "recall": 0.888646288209607,
+      "n_sampled": 10980,
+      "positives": 1830,
+      "negatives": 9150
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis": "H1: 2021 is a distinct market regime",
+      "status": "Supported descriptively/statistically",
+      "evidence": "2021 is the largest single dated cohort in the expanded current-unicorn list (441 rows); era differences in valuation and funding are statistically significant; sector mix differs by era.",
+      "planned_followup": "Bring in external VC funding/interest-rate data only if the final project needs causal COVID interpretation."
+    },
+    {
+      "hypothesis": "H2: Funding predicts valuation with diminishing returns",
+      "status": "Supported",
+      "evidence": "Audited benchmark champion test R2=0.30; no-funding stress test R2=0.05; log-log funding elasticity ~= 0.49.",
+      "planned_followup": "Use benchmark residuals rather than raw valuations to spot capital-efficient outperformance."
+    },
+    {
+      "hypothesis": "H3: Sector/geography add signal beyond funding",
+      "status": "Partially supported",
+      "evidence": "Industry, country, and continent residual tables show directional variation, but several medians are muted and small categories require confidence flags.",
+      "planned_followup": "Use sample-size penalties and confidence bands before turning residuals into rankings."
+    },
+    {
+      "hypothesis": "H4: Expanded controls solve survivorship bias",
+      "status": "Disproven / only partially solved",
+      "evidence": "The 75k-row master adds comparison tiers, but sources are mixed across time and valuation coverage is only 1,829 rows.",
+      "planned_followup": "Use expanded data for diagnostic tier comparisons, not causal startup-success prediction."
+    },
+    {
+      "hypothesis": "H5: Investor count is enough for investor network effects",
+      "status": "Not proven",
+      "evidence": "Investor count is a weak proxy for investor quality, timing, and co-investor networks.",
+      "planned_followup": "Add top-fund flags and co-investor network features in final implementation."
+    }
+  ],
+  "top_industry_residuals": [
+    {
+      "industry_group": "Cybersecurity",
+      "n": 8,
+      "median_valuation_b": 2.5,
+      "median_funding_b": 0.399,
+      "avg_residual_ln": 0.08199523088192429,
+      "median_outperformance_pct": -0.0726062303144997
+    },
+    {
+      "industry_group": "Fintech",
+      "n": 213,
+      "median_valuation_b": 2.0,
+      "median_funding_b": 0.381,
+      "avg_residual_ln": 0.044598380365249386,
+      "median_outperformance_pct": -0.025049241815572443
+    },
+    {
+      "industry_group": "Enterprise Software",
+      "n": 300,
+      "median_valuation_b": 2.0,
+      "median_funding_b": 0.31,
+      "avg_residual_ln": 0.0222175272474362,
+      "median_outperformance_pct": -0.1378663823580405
+    },
+    {
+      "industry_group": "Health & Bio",
+      "n": 94,
+      "median_valuation_b": 1.75,
+      "median_funding_b": 0.334,
+      "avg_residual_ln": 0.019129388095628447,
+      "median_outperformance_pct": -0.05700789130879097
+    },
+    {
+      "industry_group": "AI & Data",
+      "n": 263,
+      "median_valuation_b": 1.7,
+      "median_funding_b": 0.417,
+      "avg_residual_ln": -0.01813208029315732,
+      "median_outperformance_pct": -0.12205312847731753
+    },
+    {
+      "industry_group": "Hardware & Industrials",
+      "n": 116,
+      "median_valuation_b": 1.925,
+      "median_funding_b": 0.3915,
+      "avg_residual_ln": -0.01833858661120488,
+      "median_outperformance_pct": -0.14827399855798012
+    },
+    {
+      "industry_group": "Other / Unknown",
+      "n": 20,
+      "median_valuation_b": 2.0,
+      "median_funding_b": 0.4825,
+      "avg_residual_ln": -0.12358823531718492,
+      "median_outperformance_pct": -0.15691590628958207
+    },
+    {
+      "industry_group": "E-commerce & Consumer",
+      "n": 18,
+      "median_valuation_b": 1.0,
+      "median_funding_b": 0.4355,
+      "avg_residual_ln": -0.15139109893699298,
+      "median_outperformance_pct": -0.13638850331879537
+    },
+    {
+      "industry_group": "Transport & Logistics",
+      "n": 16,
+      "median_valuation_b": 1.5,
+      "median_funding_b": 0.7765,
+      "avg_residual_ln": -0.23403354463650228,
+      "median_outperformance_pct": -0.1852916713752037
+    }
+  ],
+  "top_country_residuals": [
+    {
+      "country": "South Korea",
+      "n": 12,
+      "median_valuation_b": 2.17,
+      "median_funding_b": 0.2515,
+      "avg_residual_ln": 0.3477198766831127,
+      "median_outperformance_pct": 0.1964442133787816
+    },
+    {
+      "country": "Singapore",
+      "n": 14,
+      "median_valuation_b": 1.7,
+      "median_funding_b": 0.391,
+      "avg_residual_ln": 0.18703720810674543,
+      "median_outperformance_pct": -0.03676885787425205
+    },
+    {
+      "country": "Israel",
+      "n": 20,
+      "median_valuation_b": 1.4,
+      "median_funding_b": 0.2425,
+      "avg_residual_ln": 0.11895674498427926,
+      "median_outperformance_pct": -0.14540871911747322
+    },
+    {
+      "country": "Canada",
+      "n": 18,
+      "median_valuation_b": 1.875,
+      "median_funding_b": 0.267,
+      "avg_residual_ln": 0.07204379822337753,
+      "median_outperformance_pct": -0.15979066442990136
+    },
+    {
+      "country": "United Kingdom",
+      "n": 43,
+      "median_valuation_b": 2.0,
+      "median_funding_b": 0.403,
+      "avg_residual_ln": 0.028687910474731366,
+      "median_outperformance_pct": -0.061841216921115105
+    },
+    {
+      "country": "India",
+      "n": 64,
+      "median_valuation_b": 1.9,
+      "median_funding_b": 0.452,
+      "avg_residual_ln": 0.024023404206282017,
+      "median_outperformance_pct": -0.07058295535414189
+    },
+    {
+      "country": "United States",
+      "n": 561,
+      "median_valuation_b": 2.0,
+      "median_funding_b": 0.337,
+      "avg_residual_ln": 0.012696732439192124,
+      "median_outperformance_pct": -0.10940707749294021
+    },
+    {
+      "country": "Germany",
+      "n": 25,
+      "median_valuation_b": 2.0,
+      "median_funding_b": 0.593,
+      "avg_residual_ln": -0.06712810743683192,
+      "median_outperformance_pct": -0.13638850331879537
+    },
+    {
+      "country": "France",
+      "n": 23,
+      "median_valuation_b": 1.98,
+      "median_funding_b": 0.517,
+      "avg_residual_ln": -0.08858758050726007,
+      "median_outperformance_pct": -0.023717899886754434
+    },
+    {
+      "country": "China",
+      "n": 166,
+      "median_valuation_b": 1.455,
+      "median_funding_b": 0.3835,
+      "avg_residual_ln": -0.10309195073725597,
+      "median_outperformance_pct": -0.15980152122422275
+    }
+  ]
+}
